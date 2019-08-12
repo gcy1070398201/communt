@@ -27,20 +27,10 @@ public class GitHubProvide {
                     .post(body)
                     .build();
             try (Response response = client.newCall(request).execute()) {
-
-//                access_token=98fa5b95d0208bb3037afef5a32f1be0f8bfacac&scope=&token_type=bearer
                 String respon=response.body().string();
                 String[]split=respon.split("&");
-                Map<String,String>mapKey=new HashMap<>();
-                for (int i=0;i<split.length;i++){
-                    String[] su=split[i].split("=");
-                    mapKey.put(su[0],su[1]);
-                }
-                if (mapKey.containsKey("access_token")){
-                    return mapKey.get("access_token");
-                }else {
-                    return "";
-                }
+                String[] su=split[0].split("=");
+                return su[1];
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,19 +41,17 @@ public class GitHubProvide {
      * @param token
      * @return
      */
-    public String getGitHubUser(String token){
-        System.out.println("getGitHubToken>>>>"+token);
+    public GitHubUserDto getGitHubUser(String token){
         OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://api.github.com/user?token="+token)
+                    .url("https://api.github.com/user?access_token="+token)
                     .build();
             try (Response response = client.newCall(request).execute()) {
-                System.out.println("getGitHubToken>>>>"+response.body().string());
                 GitHubUserDto gitHubUserDto=JSON.parseObject(response.body().string(), GitHubUserDto.class);
-//                return response.body().string();
+                return gitHubUserDto;
         } catch (IOException e) {
                 e.printStackTrace();
             }
-        return "";
+        return null;
     }
 }

@@ -9,6 +9,15 @@ public class GitHubUserDto {
     private String avatar_url;
     private String node_id;
     private String name;
+    private String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public String getId() {
         return id;
