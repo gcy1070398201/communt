@@ -50,4 +50,15 @@ public class GitHubUserDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "GitHubUserDto{" +
+                "id='" + id + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", node_id='" + node_id + '\'' +
+                ", name='" + name + '\'' +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
 }
