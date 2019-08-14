@@ -1,0 +1,23 @@
+##服务器端口
+server:
+  port: 8080
+##静态资源
+github:
+  client:
+    id: Iv1.9459f0cd18246862
+    secret: b838edfa211981984ed88ea7f7f0b103d31d52f6
+  redirect:
+    uri: http://localhost:8080/callback
+##配置数据库连接
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/user?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+##配置mybatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  config-location: classpath:mybatis/mybatis_config.xml
+  configuration-properties: classpath:mybatis/mapper/*.xml
