@@ -27,6 +27,7 @@ public class OAuthController {
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
+
     @Autowired
     UserService userService;
 
@@ -46,7 +47,7 @@ public class OAuthController {
         GitHubUserDto gitHubUser=gitHubProvide.getGitHubUser(token);
         if (gitHubUser!=null){
             //登录成功
-            userService.insertUser(gitHubUser,response);
+            userService.insertIntoUser(gitHubUser,response);
 
             return "redirect:index";
         }else{

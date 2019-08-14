@@ -20,7 +20,7 @@ public class UserService {
      * 插入数据
      * @param gitHubUser
      */
-    public void insertUser(GitHubUserDto gitHubUser, HttpServletResponse response){
+    public void insertIntoUser(GitHubUserDto gitHubUser, HttpServletResponse response){
 
         User user=new User();
         user.setAccountId(gitHubUser.getId());
@@ -28,7 +28,7 @@ public class UserService {
         user.setToken(UUID.randomUUID().toString());
         user.setGmtCreate(System.currentTimeMillis());
         user.setGmtModified(user.getGmtCreate());
-        mapper.inserUser(user);
+        mapper.insertUser(user);
         //添加到Cookie
         response.addCookie(new Cookie("token",user.getToken()));
     }
