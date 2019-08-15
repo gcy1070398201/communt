@@ -5,9 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/communt.css">
     <script href="js/bootstrap.min.css" type="application/ecmascript"></script>
 </head>
-<body>
+<body class="main">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -24,7 +25,9 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=Iv1.9459f0cd18246862&scope=user&state=1&redirect_uri=http://localhost:8080/callback">登录</a></li>
+                <li th:if="${session.user==null}"><a
+                        href="https://github.com/login/oauth/authorize?client_id=Iv1.9459f0cd18246862&scope=user&state=1&redirect_uri=http://localhost:8080/callback">登录</a>
+                </li>
                 <li class="dropdown" th:if="${session.user!=null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
@@ -39,12 +42,38 @@
             </ul>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-9" th:height="340dp" th:background="#008bff"></div>
-            <div class="col-lg-3" th:height="340dp" th:background="#000"></div>
+</nav>
+
+<div class="container-fluid ">
+    <div class="row context-form">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+            <form action="/publish" method="post">
+                <h3><span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span></h3>
+                <hr>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">问题标题（简单扼要）:</label>
+                    <input type="email" class="form-control" name="title" id="exampleInputEmail1" placeholder="问题标题....">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">问题内容:</label>
+                    <textarea class="form-control" rows="7" name="describe" placeholder="请描述问题..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">添加标签:</label>
+                    <input type="password" class="form-control" name="label" id="exampleInputPassword1" placeholder="请输入标签，用,号分割">
+                </div>
+                <button type="submit" class="btn btn-success btn-publish">发布</button>
+            </form>
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3> 问题发起指南</h3>
+            • 问题标题: 请用精简的语言描述您发布的问题，不超过25字<br>
+            • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
+            • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
         </div>
     </div>
-</nav>
+</div>
+
 </body>
 </html>
