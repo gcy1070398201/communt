@@ -11,4 +11,7 @@
     <select id="findUserToken" parameterType="String" resultType="com.exampl.communt.mode.User">
         select * FROM user_info where token=#{token}
     </select>
+    <select id="findUserId" parameterType="String" resultType="com.exampl.communt.mode.User">
+        select * FROM user_info where id=#{id}
+    </select>
 </mapper>

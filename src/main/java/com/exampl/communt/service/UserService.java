@@ -42,4 +42,14 @@ public class UserService {
         return mapper.findUserToken(token);
     }
 
+    /**
+     * 根据id 获取用户信息
+     * @param id
+     * @return
+     */
+    public User findUserId(String id){
+
+        return mapper.findUserId(id);
+    }
+
 }

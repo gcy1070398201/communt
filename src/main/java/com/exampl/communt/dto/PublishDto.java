@@ -1,9 +1,8 @@
-package com.exampl.communt.mode;
+package com.exampl.communt.dto;
 
-import java.io.Serializable;
+import com.exampl.communt.mode.User;
 
-public class PublishMode implements Serializable {
-
+public class PublishDto {
     private Integer id;
     private String title;
     private String describe;
@@ -13,14 +12,7 @@ public class PublishMode implements Serializable {
     private long gmtModified;
     private int replyCount;//回复次数
     private int viewCount;//游览次数
-
-    public String getCreatId() {
-        return this.creatId;
-    }
-
-    public void setCreatId(final String creatId) {
-        this.creatId = creatId;
-    }
+    private User user;//User 信息
 
     public Integer getId() {
         return this.id;
@@ -54,6 +46,14 @@ public class PublishMode implements Serializable {
         this.label = label;
     }
 
+    public String getCreatId() {
+        return this.creatId;
+    }
+
+    public void setCreatId(final String creatId) {
+        this.creatId = creatId;
+    }
+
     public long getGmtCreate() {
         return this.gmtCreate;
     }
@@ -84,5 +84,13 @@ public class PublishMode implements Serializable {
 
     public void setViewCount(final int viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(final User user) {
+        this.user = user;
     }
 }
