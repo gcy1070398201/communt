@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exampl.communt.mapper.PublishMapper">
     <insert id="insert" parameterType="com.exampl.communt.mode.PublishMode">
-        insert into publish
-        (title,describe,label,creatId,replyCount,viewCount,gmt_create,gmt_modified)
-        values (#{title},#{describe},#{label},#{creatId},#{replyCount},#{viewCount},#{gmtCreate},#{gmtModified})
+        INSERT INTO publish
+        (title,describe_text,label,creat_id,reply_count,view_count,gmt_create,gmt_modified)
+        VALUES (#{title},#{describeText},#{label},#{creatId},#{replyCount},#{viewCount},#{gmtCreate},#{gmtModified})
     </insert>
-    <select id="find">
+    <select id="select" resultType="com.exampl.communt.mode.PublishMode">
         SELECT * FROM publish
     </select>
 </mapper>

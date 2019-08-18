@@ -5,8 +5,8 @@
 <mapper namespace="com.exampl.communt.mapper.UserMapper">
     <insert id="insertUser" parameterType="com.exampl.communt.mode.User">
         insert into user_info
-        (account_id,name,token,gmt_create,gmt_modified)
-        values (#{accountId},#{name},#{token},#{gmtCreate},#{gmtModified})
+        (account_id,name,token,bio,avatar_url,gmt_create,gmt_modified)
+        values (#{accountId},#{name},#{token},#{bio},#{avatar_url},#{gmtCreate},#{gmtModified})
     </insert>
     <select id="findUserToken" parameterType="String" resultType="com.exampl.communt.mode.User">
         select * FROM user_info where token=#{token}

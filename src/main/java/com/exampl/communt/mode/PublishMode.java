@@ -6,13 +6,21 @@ public class PublishMode implements Serializable {
 
     private Integer id;
     private String title;
-    private String describe;
+    private String describeText;
     private String label;
     private String creatId;//创建人的id
-    private long gmtCreate;
-    private long gmtModified;
     private int replyCount;//回复次数
     private int viewCount;//游览次数
+    private long gmtCreate;
+    private long gmtModified;
+
+    public String getDescribeText() {
+        return describeText;
+    }
+
+    public void setDescribeText(String describeText) {
+        this.describeText = describeText;
+    }
 
     public String getCreatId() {
         return this.creatId;
@@ -38,13 +46,6 @@ public class PublishMode implements Serializable {
         this.title = title;
     }
 
-    public String getDescribe() {
-        return this.describe;
-    }
-
-    public void setDescribe(final String describe) {
-        this.describe = describe;
-    }
 
     public String getLabel() {
         return this.label;

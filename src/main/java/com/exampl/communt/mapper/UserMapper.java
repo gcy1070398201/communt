@@ -3,6 +3,7 @@ package com.exampl.communt.mapper;
 import com.exampl.communt.mode.User;
 import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface UserMapper {
     /**
      * 插入数据

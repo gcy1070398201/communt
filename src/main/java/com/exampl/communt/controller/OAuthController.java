@@ -43,7 +43,6 @@ public class OAuthController {
         gitHubOauthDto.setClient_id(clientId);
         gitHubOauthDto.setClient_secret(clientSecret);
         String token=gitHubProvide.getGitHubToken(gitHubOauthDto);
-        System.out.println(token);
         GitHubUserDto gitHubUser=gitHubProvide.getGitHubUser(token);
         if (gitHubUser!=null){
             //登录成功

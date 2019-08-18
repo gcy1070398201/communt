@@ -61,7 +61,7 @@ public class PublishController {
 
         PublishMode publishMode=new PublishMode();
         publishMode.setTitle(title);
-        publishMode.setDescribe(describe);
+        publishMode.setDescribeText(describe);
         publishMode.setLabel(label);
 
         Cookie[] cookies=request.getCookies();

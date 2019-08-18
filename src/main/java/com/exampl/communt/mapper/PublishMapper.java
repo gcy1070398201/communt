@@ -1,9 +1,11 @@
 package com.exampl.communt.mapper;
 
 import com.exampl.communt.mode.PublishMode;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface PublishMapper {
 
     /**

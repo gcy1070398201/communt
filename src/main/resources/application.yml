@@ -5,7 +5,7 @@ server:
 github:
   client:
     id: Iv1.9459f0cd18246862
-    secret: b838edfa211981984ed88ea7f7f0b103d31d52f6
+    secret: 89161335c856c7ab64e12396dd8887641825ec67
   redirect:
     uri: http://localhost:8080/callback
 ##配置数据库连接
