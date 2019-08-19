@@ -6,7 +6,7 @@
     <insert id="insertUser" parameterType="com.exampl.communt.mode.User">
         insert into user_info
         (account_id,name,token,bio,avatar_url,gmt_create,gmt_modified)
-        values (#{accountId},#{name},#{token},#{bio},#{avatar_url},#{gmtCreate},#{gmtModified})
+        values (#{accountId},#{name},#{token},#{bio},#{avatarUrl},#{gmtCreate},#{gmtModified})
     </insert>
     <select id="findUserToken" parameterType="String" resultType="com.exampl.communt.mode.User">
         select * FROM user_info where token=#{token}

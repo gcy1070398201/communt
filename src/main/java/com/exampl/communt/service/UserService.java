@@ -28,7 +28,7 @@ public class UserService {
         user.setToken(UUID.randomUUID().toString());
         user.setGmtCreate(System.currentTimeMillis());
         user.setGmtModified(user.getGmtCreate());
-        user.setAvatar_url(gitHubUser.getAvatar_url());
+        user.setAvatarUrl(gitHubUser.getAvatar_url());
         user.setBio(gitHubUser.getBio());
         mapper.insertUser(user);
         //添加到Cookie

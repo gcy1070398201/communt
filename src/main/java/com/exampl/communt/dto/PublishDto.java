@@ -5,7 +5,7 @@ import com.exampl.communt.mode.User;
 public class PublishDto {
     private Integer id;
     private String title;
-    private String describe;
+    private String describeText;
     private String label;
     private String creatId;//创建人的id
     private long gmtCreate;
@@ -30,12 +30,12 @@ public class PublishDto {
         this.title = title;
     }
 
-    public String getDescribe() {
-        return this.describe;
+    public String getDescribeText() {
+        return this.describeText;
     }
 
-    public void setDescribe(final String describe) {
-        this.describe = describe;
+    public void setDescribeText(final String describeText) {
+        this.describeText = describeText;
     }
 
     public String getLabel() {

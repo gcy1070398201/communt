@@ -63,6 +63,8 @@ public class PublishController {
         publishMode.setTitle(title);
         publishMode.setDescribeText(describe);
         publishMode.setLabel(label);
+        publishMode.setGmtCreate(System.currentTimeMillis());
+        publishMode.setGmtModified(publishMode.getGmtCreate());
 
         Cookie[] cookies=request.getCookies();
         if (cookies!=null&&cookies.length!=0){
@@ -80,7 +82,7 @@ public class PublishController {
 
         publishService.insert(publishMode);
 
-        return "/index";
+        return "redirect:index";
     }
 
 }

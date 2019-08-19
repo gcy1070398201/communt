@@ -8,15 +8,15 @@ public class User implements Serializable {
     private String accountId;
     private String name;
     private String token;
-    private String avatar_url;
+    private String avatarUrl;
     private String bio;
 
-    public String getAvatar_url() {
-        return avatar_url;
+    public String getAvatarUrl() {
+        return this.avatarUrl;
     }
 
-    public void setAvatar_url(String avatar_url) {
-        this.avatar_url = avatar_url;
+    public void setAvatarUrl(final String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getBio() {

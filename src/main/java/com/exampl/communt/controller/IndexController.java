@@ -40,6 +40,7 @@ public class IndexController {
         }
 
         List<PublishDto> publishDtoList=publishService.select();
+
         model.addAttribute("lists",publishDtoList);
 
         return "index";
