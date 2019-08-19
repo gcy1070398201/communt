@@ -60,7 +60,7 @@
                     <h5 class="media-heading" th:text="${list.getDescribeText()}"></h5>
                     <span th:text="${list.getReplyCount()}"></span>个回复
                     <span th:text="${list.getViewCount()}"></span>次游览
-                    <span th:text="${list.getGmtCreate()}"></span>
+                    <span th:text="${#dates.format(list.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span>
                 </div>
             </div>
         </div>
