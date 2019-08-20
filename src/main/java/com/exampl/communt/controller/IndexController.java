@@ -1,5 +1,6 @@
 package com.exampl.communt.controller;
 
+import com.exampl.communt.dto.PubLishListDto;
 import com.exampl.communt.dto.PublishDto;
 import com.exampl.communt.mode.User;
 import com.exampl.communt.service.PublishService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,10 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(HttpServletRequest request,
-                        Model model){
+                        Model model,
+                        @RequestParam(value = "page",defaultValue = "1") Integer page,
+                        @RequestParam(value = "size",defaultValue = "2") Integer size){
+
         Cookie[] cookies=request.getCookies();
         if (cookies!=null&&cookies.length!=0)
         for (int i=0;i<cookies.length;i++){
@@ -39,9 +44,8 @@ public class IndexController {
             }
         }
 
-        List<PublishDto> publishDtoList=publishService.select();
-
-        model.addAttribute("lists",publishDtoList);
+        PubLishListDto publishDtoList=publishService.select(page,size);
+        model.addAttribute("publishDtoList",publishDtoList);
 
         return "index";
     }

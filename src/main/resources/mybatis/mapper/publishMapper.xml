@@ -8,7 +8,11 @@
         (title,describe_text,label,creat_id,reply_count,view_count,gmt_create,gmt_modified)
         VALUES (#{title},#{describeText},#{label},#{creatId},#{replyCount},#{viewCount},#{gmtCreate},#{gmtModified})
     </insert>
-    <select id="select" resultType="com.exampl.communt.mode.PublishMode">
-        SELECT * FROM publish
+    <select id="select" parameterType="java.lang.Integer" resultType="com.exampl.communt.mode.PublishMode">
+        SELECT * FROM publish LIMIT #{page},#{size};
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+       SELECT COUNT(1) FROM publish
     </select>
 </mapper>
