@@ -44,10 +44,25 @@ public class PublishService {
      */
     public PubLishListDto select(Integer page, Integer size) {
         Integer currentPage = 0;
+        Integer totalPage=0;
         PubLishListDto pubLishListDto = new PubLishListDto();
-        currentPage = (page-1) * size;
         Integer totalCount = publishMapper.selectCount();
-        pubLishListDto.setPageInfo(totalCount, page, size);
+        //计算总页数
+        if (totalCount % size==0){
+            totalPage=totalCount/size;
+        }else{
+            totalPage=totalCount/size+1;
+        }
+        if (page<=0){
+            page=1;
+        }else if (page>totalPage){
+            page=totalPage;
+        }
+
+        currentPage = (page-1) * size;
+
+        pubLishListDto.setPageInfo(totalPage, page, size);
+
         List<PublishDto> publishDtos = new ArrayList<>();
         List<PublishMode> publishModes = publishMapper.select(currentPage, size);
 

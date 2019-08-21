@@ -78,16 +78,11 @@ public class PubLishListDto {
     }
 
 
-    public void setPageInfo(Integer totalCount, Integer page, Integer size) {
-
-        if (totalCount % size==0){
-            this.totalPage=totalCount/size;
-        }else{
-            this.totalPage=totalCount/size+1;
-        }
+    public void setPageInfo(Integer totalPage, Integer page, Integer size) {
+        this.totalPage=totalPage;
         this.page=page;
         pages.add(page);
-        for (int i = 1; i <=4; i++) {
+        for (int i = 1; i <=3; i++) {
             if (page-i>0){
                 pages.add(0,page-i);
             }
@@ -109,7 +104,7 @@ public class PubLishListDto {
             showNext=true;
         }
         //判断是否显示第一页
-        if (pages.contains("1")){
+        if (pages.contains(1)){
             showFirstPage=false;
         }else{
             showFirstPage=true;
