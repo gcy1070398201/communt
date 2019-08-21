@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/communt.css">
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body class="main">
+<div th:insert="titltNav :: titleBar"></div>
+<div class="container-fluid context-form">
+    <div class="row context-form">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+            <h3 th:text="${actionName}"></h3>
+            <hr>
+
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group">
+                <a href="/profile/questions" class="list-group-item" th:classappend="${actionCode=='1'}? 'active'">
+                    我的问题
+                </a>
+                <a href="/profile/replies"  class="list-group-item" th:classappend="${actionCode=='2'}? 'active'">
+                    我的回复</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
