@@ -57,29 +57,17 @@ public class PublishController {
             model.addAttribute("error","标签 不能为空");
             return "/publish";
         }
-
-
+        User user= (User) request.getSession().getAttribute("user");
+        if (user==null){
+            return "redirect:index";
+        }
         PublishMode publishMode=new PublishMode();
         publishMode.setTitle(title);
         publishMode.setDescribeText(describe);
         publishMode.setLabel(label);
         publishMode.setGmtCreate(System.currentTimeMillis());
         publishMode.setGmtModified(publishMode.getGmtCreate());
-
-        Cookie[] cookies=request.getCookies();
-        if (cookies!=null&&cookies.length!=0){
-            for (int i=0;i<cookies.length;i++){
-                if (cookies[i].getName().equals("token")){
-                    User user=userService.findUserToken(cookies[i].getValue());
-                    if (user!=null){
-                        //写入Session中
-                        publishMode.setCreatId(String.valueOf(user.getId()));
-                    }
-                    break;
-                }
-            }
-        }
-
+        publishMode.setCreatId(String.valueOf(user.getId()));
         publishService.insert(publishMode);
 
         return "redirect:index";

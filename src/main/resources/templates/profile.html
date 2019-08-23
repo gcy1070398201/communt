@@ -17,7 +17,49 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
             <h3 th:text="${actionName}"></h3>
             <hr>
-
+            <div class="media" th:each="list:${profileQuestionsDto.getPublishDtos()}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img_size img-rounded" th:src="@{${list.getUser().getAvatarUrl()}}"/>
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${list.getTitle()}"></h4>
+                    <h5 class="media-heading" th:text="${list.getDescribeText()}"></h5>
+                    <span th:text="${list.getReplyCount()}"></span>个回复
+                    <span th:text="${list.getViewCount()}"></span>次游览
+                    <span th:text="${#dates.format(list.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${profileQuestionsDto.isShowFirstPage()}">
+                        <a th:href="@{'/profile/'+${actions}(page=1)}"  aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:if="${profileQuestionsDto.isShowPrevious()}">
+                        <a th:href="@{'/profile/'+${actions}(page=${profileQuestionsDto.getPage()}-1)}"  aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${profileQuestionsDto.getPages()}">
+                        <a th:href="@{'/profile/'+${actions}(page=${page})}"
+                           th:text="${page}">
+                        </a>
+                    </li>
+                    <li th:if="${profileQuestionsDto.isShowNext()}">
+                        <a th:href="@{'/profile/'+${actions}(page=${profileQuestionsDto.getPage()}+1)}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${profileQuestionsDto.isShowEndPage()}">
+                        <a th:href="@{'/profile/'+${actions}(page=${profileQuestionsDto.getTotalPage()})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

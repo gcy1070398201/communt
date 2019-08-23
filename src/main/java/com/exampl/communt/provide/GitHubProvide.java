@@ -4,12 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.exampl.communt.dto.GitHubOauthDto;
 import com.exampl.communt.dto.GitHubUserDto;
 import okhttp3.*;
-import org.apache.juli.logging.Log;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class GitHubProvide {
