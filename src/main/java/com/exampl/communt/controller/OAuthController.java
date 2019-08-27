@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -51,4 +53,24 @@ public class OAuthController {
         }
 
     }
+
+    /**
+     * 完善退出操作
+     * @param request
+     * @param response
+     * @return
+     */
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        //清空session 信息
+        request.getSession().removeAttribute("user");
+        //清空cookie 信息
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:index";
+    }
+
 }

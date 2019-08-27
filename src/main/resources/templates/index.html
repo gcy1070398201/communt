@@ -19,7 +19,7 @@
             <hr>
             <div class="media" th:each="list:${publishDtoList.getPublishDtos()}">
                 <div class="media-left">
-                    <a href="#">
+                    <a th:href="@{/question/id=${list.getId()}}">
                         <img class="media-object img_size img-rounded" th:src="@{${list.getUser().getAvatarUrl()}}"/>
                     </a>
                 </div>

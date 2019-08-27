@@ -116,4 +116,14 @@ public class PublishService {
 
         return profileQuestionsDto;
     }
+
+    public PublishDto selectByIdInfo(Integer id) {
+
+        PublishMode publishMode=publishMapper.selectByIdInfo(id);
+        PublishDto publishDto = new PublishDto();
+        BeanUtils.copyProperties(publishMode, publishDto);
+        User user = userService.findUserId(publishDto.getCreatId());
+        publishDto.setUser(user);
+        return publishDto;
+    }
 }
