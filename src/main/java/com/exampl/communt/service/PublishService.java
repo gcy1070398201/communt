@@ -39,6 +39,7 @@ public class PublishService {
      * @return
      */
     public PubLishListDto select(Integer page, Integer size) {
+        if (page<=0)page=1;
         Integer currentPage = 0;
         Integer totalPage=0;
         PubLishListDto pubLishListDto = new PubLishListDto();
@@ -49,13 +50,16 @@ public class PublishService {
         }else{
             totalPage=totalCount/size+1;
         }
+
+        currentPage = (page-1) * size;
+
         if (page<=0){
             page=1;
         }else if (page>totalPage){
             page=totalPage;
         }
 
-        currentPage = (page-1) * size;
+
 
         pubLishListDto.setPageInfo(totalPage, page, size);
 
@@ -125,5 +129,18 @@ public class PublishService {
         User user = userService.findUserId(publishDto.getCreatId());
         publishDto.setUser(user);
         return publishDto;
+    }
+
+    public PublishMode createOrUpdate(Integer id,PublishMode publishMode) {
+        if (id!=0){
+            //更新信息
+            PublishMode publishMode1=publishMapper.selectByIdInfo(id);
+            if (publishMode1!=null){
+                BeanUtils.copyProperties(publishMode1, publishMode);
+            }
+        }
+
+        return publishMode;
+
     }
 }

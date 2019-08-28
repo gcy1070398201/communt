@@ -20,19 +20,31 @@ public class UserService {
      * 插入数据
      * @param gitHubUser
      */
-    public void insertIntoUser(GitHubUserDto gitHubUser, HttpServletResponse response){
+    public void createOrUpdateUser(GitHubUserDto gitHubUser, HttpServletResponse response){
 
-        User user=new User();
-        user.setAccountId(gitHubUser.getId());
-        user.setName(gitHubUser.getName());
-        user.setToken(UUID.randomUUID().toString());
-        user.setGmtCreate(System.currentTimeMillis());
-        user.setGmtModified(user.getGmtCreate());
-        user.setAvatarUrl(gitHubUser.getAvatar_url());
-        user.setBio(gitHubUser.getBio());
-        mapper.insertUser(user);
+        User dbuser = mapper.findAccountId(gitHubUser.getId());
+        String token=UUID.randomUUID().toString();
+        if (dbuser==null){
+            User user=new User();
+            user.setAccountId(gitHubUser.getId());
+            user.setName(gitHubUser.getName());
+            user.setToken(token);
+            user.setAvatarUrl(gitHubUser.getAvatar_url());
+            user.setBio(gitHubUser.getBio());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            mapper.insertUser(user);
+        }else{
+            //更新用户信息
+            dbuser.setToken(token);
+            dbuser.setBio(gitHubUser.getBio());
+            dbuser.setName(gitHubUser.getName());
+            dbuser.setGmtModified(System.currentTimeMillis());
+            mapper.createOrUpdate(dbuser);
+
+        }
         //添加到Cookie
-        response.addCookie(new Cookie("token",user.getToken()));
+        response.addCookie(new Cookie("token",token));
     }
 
     /**

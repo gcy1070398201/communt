@@ -20,4 +20,15 @@ public interface UserMapper {
      * @return
      */
     User findUserId(String id);
+    /**
+     * 根据id 获取信息
+     * @return
+     */
+    User findAccountId(String id);
+
+    /**
+     * 更新创建用户
+     * @param user
+     */
+    void createOrUpdate(User user);
 }

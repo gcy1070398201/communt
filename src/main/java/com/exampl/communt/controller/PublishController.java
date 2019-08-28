@@ -23,14 +23,22 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class PublishController {
 
-    @GetMapping(value = "/publish")
-    public String publish(){
-        return"publish";
-    }
+
     @Autowired
     PublishService publishService;
     @Autowired
     UserService userService;
+
+    @GetMapping(value = "/publish")
+    public String publish(@RequestParam(value = "id",defaultValue = "0") Integer id,
+                          Model model){
+        PublishMode publishMode=new PublishMode();
+        if (id!=0){
+            publishMode=publishService.createOrUpdate(id,publishMode);
+        }
+        model.addAttribute("publishMode",publishMode);
+        return"publish";
+    }
 
     /**
      * 提交问题
@@ -68,7 +76,8 @@ public class PublishController {
         publishMode.setGmtCreate(System.currentTimeMillis());
         publishMode.setGmtModified(publishMode.getGmtCreate());
         publishMode.setCreatId(String.valueOf(user.getId()));
-        publishService.insert(publishMode);
+
+//        publishService.createOrUpdate(id,publishMode);
 
         return "redirect:index";
     }

@@ -15,7 +15,7 @@
     <select id="selectCount" resultType="java.lang.Integer">
        SELECT COUNT(1) FROM publish
     </select>
-    <select id="selectByIdInfo" resultType="com.exampl.communt.mode.PublishMode">
-       SELECT COUNT * FROM publish where id=#{id}
+    <select id="selectByIdInfo" parameterType="java.lang.Integer" resultType="com.exampl.communt.mode.PublishMode">
+       SELECT * FROM publish where id=#{id}
     </select>
 </mapper>

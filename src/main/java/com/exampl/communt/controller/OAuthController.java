@@ -44,8 +44,7 @@ public class OAuthController {
         GitHubUserDto gitHubUser=gitHubProvide.getGitHubUser(token);
         if (gitHubUser!=null){
             //登录成功
-            userService.insertIntoUser(gitHubUser,response);
-
+            userService.createOrUpdateUser(gitHubUser,response);
             return "redirect:index";
         }else{
             //登录失败

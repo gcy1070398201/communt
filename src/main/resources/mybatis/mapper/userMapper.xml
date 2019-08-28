@@ -14,4 +14,11 @@
     <select id="findUserId" parameterType="String" resultType="com.exampl.communt.mode.User">
         select * FROM user_info where id=#{id}
     </select>
+    <select id="findAccountId" parameterType="String" resultType="com.exampl.communt.mode.User">
+        select * FROM user_info where account_id=#{id}
+    </select>
+    <update id="createOrUpdate" parameterType="com.exampl.communt.mode.User">
+    update user_info set token=#{token},bio=#{bio},gmt_modified=#{gmtModified},name=#{name}
+    where id=#{id}
+    </update>
 </mapper>
