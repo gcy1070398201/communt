@@ -3,11 +3,13 @@ package com.exampl.communt.service;
 import com.exampl.communt.dto.GitHubUserDto;
 import com.exampl.communt.mapper.UserMapper;
 import com.exampl.communt.mode.User;
+import com.exampl.communt.mode.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,8 +23,13 @@ public class UserService {
      * @param gitHubUser
      */
     public void createOrUpdateUser(GitHubUserDto gitHubUser, HttpServletResponse response){
-
-        User dbuser = mapper.findAccountId(gitHubUser.getId());
+        UserExample userExample=new UserExample();
+        userExample.createCriteria().andAccountIdEqualTo(gitHubUser.getId());
+        List<User> list=mapper.selectByExample(userExample);
+        if (list.size()==0){
+            return;
+        }
+        User dbuser = list.get(0);
         String token=UUID.randomUUID().toString();
         if (dbuser==null){
             User user=new User();
@@ -33,15 +40,19 @@ public class UserService {
             user.setBio(gitHubUser.getBio());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-            mapper.insertUser(user);
+            mapper.insert(user);
         }else{
             //更新用户信息
-            dbuser.setToken(token);
-            dbuser.setBio(gitHubUser.getBio());
-            dbuser.setName(gitHubUser.getName());
-            dbuser.setGmtModified(System.currentTimeMillis());
-            mapper.createOrUpdate(dbuser);
+            User updateUser=new User();
+            updateUser.setToken(token);
+            updateUser.setBio(gitHubUser.getBio());
+            updateUser.setName(gitHubUser.getName());
+            updateUser.setGmtModified(System.currentTimeMillis());
 
+            UserExample userUpdate=new UserExample();
+            userUpdate.createCriteria().andIdEqualTo(dbuser.getId());
+
+            mapper.updateByExample(updateUser,userUpdate);
         }
         //添加到Cookie
         response.addCookie(new Cookie("token",token));
@@ -53,7 +64,13 @@ public class UserService {
      * @return
      */
     public User findUserToken(String token){
-        return mapper.findUserToken(token);
+        UserExample userExample=new UserExample();
+        userExample.createCriteria().andTokenEqualTo(token);
+        List<User> list= mapper.selectByExample(userExample);
+        if (list.size()>0){
+            return list.get(0);
+        }
+        return null;
     }
 
     /**
@@ -62,8 +79,14 @@ public class UserService {
      * @return
      */
     public User findUserId(String id){
-
-        return mapper.findUserId(id);
+        UserExample userExample=new UserExample();
+        userExample.createCriteria()
+                .andIdEqualTo(Integer.valueOf(id));
+        List<User> list=mapper.selectByExample(userExample);
+        if (list.size()>0){
+            return list.get(0);
+        }
+        return null;
     }
 
 }

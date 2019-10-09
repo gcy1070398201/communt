@@ -4,8 +4,11 @@ import com.exampl.communt.dto.ProfileQuestionsDto;
 import com.exampl.communt.dto.PubLishListDto;
 import com.exampl.communt.dto.PublishDto;
 import com.exampl.communt.mapper.PublishMapper;
+import com.exampl.communt.mapper.PublishModeMapper;
 import com.exampl.communt.mode.PublishMode;
+import com.exampl.communt.mode.PublishModeExample;
 import com.exampl.communt.mode.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ import java.util.List;
 public class PublishService {
 
     @Autowired
-    PublishMapper publishMapper;
+    PublishModeMapper publishMapper;
 
     @Autowired
     UserService userService;
@@ -43,7 +46,7 @@ public class PublishService {
         Integer currentPage = 0;
         Integer totalPage=0;
         PubLishListDto pubLishListDto = new PubLishListDto();
-        Integer totalCount = publishMapper.selectCount();
+        Integer totalCount = (int)publishMapper.countByExample(new PublishModeExample());
         //计算总页数
         if (totalCount % size==0){
             totalPage=totalCount/size;
@@ -64,7 +67,9 @@ public class PublishService {
         pubLishListDto.setPageInfo(totalPage, page, size);
 
         List<PublishDto> publishDtos = new ArrayList<>();
-        List<PublishMode> publishModes = publishMapper.select(currentPage, size);
+
+        List<PublishMode> publishModes = publishMapper.selectByExampleWithRowbounds(
+                new PublishModeExample(), new RowBounds(currentPage,size));
 
         if (publishModes != null && publishModes.size() > 0) {
             for (PublishMode publishMode : publishModes) {
@@ -86,7 +91,7 @@ public class PublishService {
         Integer currentPage = 0;
         Integer totalPage=0;
         ProfileQuestionsDto profileQuestionsDto = new ProfileQuestionsDto();
-        Integer totalCount = publishMapper.selectCount();
+        Integer totalCount = (int)publishMapper.countByExample(new PublishModeExample());
         //计算总页数
         if (totalCount % size==0){
             totalPage=totalCount/size;
@@ -98,13 +103,12 @@ public class PublishService {
         }else if (page>totalPage){
             page=totalPage;
         }
-
         currentPage = (page-1) * size;
 
         profileQuestionsDto.setPageInfo(totalPage, page, size);
-
         List<PublishDto> publishDtos = new ArrayList<>();
-        List<PublishMode> publishModes = publishMapper.select(currentPage, size);
+        List<PublishMode> publishModes = publishMapper.selectByExampleWithRowbounds(
+                new PublishModeExample(), new RowBounds(currentPage,size));
 
         if (publishModes != null && publishModes.size() > 0) {
             for (PublishMode publishMode : publishModes) {
@@ -116,14 +120,18 @@ public class PublishService {
             }
         }
         profileQuestionsDto.setPublishDtos(publishDtos);
-
-
         return profileQuestionsDto;
     }
 
     public PublishDto selectByIdInfo(Integer id) {
 
-        PublishMode publishMode=publishMapper.selectByIdInfo(id);
+        PublishModeExample publishModeExample=new PublishModeExample();
+        publishModeExample.createCriteria().andIdEqualTo(id);
+        List<PublishMode> list=publishMapper.selectByExample(publishModeExample);
+        if (list.size()==0){
+            return null;
+        }
+        PublishMode publishMode=list.get(0);
         PublishDto publishDto = new PublishDto();
         BeanUtils.copyProperties(publishMode, publishDto);
         User user = userService.findUserId(publishDto.getCreatId());
@@ -134,12 +142,17 @@ public class PublishService {
     public PublishMode createOrUpdate(Integer id,PublishMode publishMode) {
         if (id!=0){
             //更新信息
-            PublishMode publishMode1=publishMapper.selectByIdInfo(id);
+            PublishModeExample publishModeExample=new PublishModeExample();
+            publishModeExample.createCriteria().andIdEqualTo(id);
+            List<PublishMode> list=publishMapper.selectByExample(publishModeExample);
+            if (list.size()==0){
+                return null;
+            }
+            PublishMode publishMode1=list.get(0);
             if (publishMode1!=null){
                 BeanUtils.copyProperties(publishMode1, publishMode);
             }
         }
-
         return publishMode;
 
     }
