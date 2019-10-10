@@ -52,7 +52,7 @@ public class UserService {
             UserExample userUpdate=new UserExample();
             userUpdate.createCriteria().andIdEqualTo(dbuser.getId());
 
-            mapper.updateByExample(updateUser,userUpdate);
+            mapper.updateByExampleSelective(updateUser,userUpdate);
         }
         //添加到Cookie
         response.addCookie(new Cookie("token",token));

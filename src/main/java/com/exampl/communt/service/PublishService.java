@@ -3,7 +3,6 @@ package com.exampl.communt.service;
 import com.exampl.communt.dto.ProfileQuestionsDto;
 import com.exampl.communt.dto.PubLishListDto;
 import com.exampl.communt.dto.PublishDto;
-import com.exampl.communt.mapper.PublishMapper;
 import com.exampl.communt.mapper.PublishModeMapper;
 import com.exampl.communt.mode.PublishMode;
 import com.exampl.communt.mode.PublishModeExample;
