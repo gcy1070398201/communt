@@ -1,6 +1,8 @@
 package com.exampl.communt.controller;
 
 import com.exampl.communt.dto.PublishDto;
+import com.exampl.communt.exception.AcmeException;
+import com.exampl.communt.exception.AcmeExceptionCode;
 import com.exampl.communt.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,11 @@ public class QuestionController {
                            Model model){
 
         PublishDto publishDto=publishService.selectByIdInfo(id);
-        model.addAttribute("publishDto",publishDto);
+        if (publishDto!=null){
+            model.addAttribute("publishDto",publishDto);
+        }else{
+            throw new AcmeException(AcmeExceptionCode.Question_ERROR_MESSAGE);
+        }
         return "question";
     }
 

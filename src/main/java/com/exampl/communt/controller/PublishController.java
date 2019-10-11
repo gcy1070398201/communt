@@ -77,7 +77,7 @@ public class PublishController {
         publishMode.setGmtModified(publishMode.getGmtCreate());
         publishMode.setCreatId(String.valueOf(user.getId()));
 
-//        publishService.createOrUpdate(id,publishMode);
+        publishService.insert(publishMode);
 
         return "redirect:index";
     }

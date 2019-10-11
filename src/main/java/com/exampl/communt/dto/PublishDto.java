@@ -10,8 +10,8 @@ public class PublishDto {
     private String creatId;//创建人的id
     private long gmtCreate;
     private long gmtModified;
-    private int replyCount;//回复次数
-    private int viewCount;//游览次数
+    private Integer replyCount;//回复次数
+    private Integer viewCount;//游览次数
     private User user;//User 信息
 
     public Integer getId() {
@@ -70,19 +70,19 @@ public class PublishDto {
         this.gmtModified = gmtModified;
     }
 
-    public int getReplyCount() {
+    public Integer getReplyCount() {
         return this.replyCount;
     }
 
-    public void setReplyCount(final int replyCount) {
+    public void setReplyCount(final Integer replyCount) {
         this.replyCount = replyCount;
     }
 
-    public int getViewCount() {
+    public Integer getViewCount() {
         return this.viewCount;
     }
 
-    public void setViewCount(final int viewCount) {
+    public void setViewCount(final Integer viewCount) {
         this.viewCount = viewCount;
     }
 

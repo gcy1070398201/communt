@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/communt.css">
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body class="main">
+<div th:insert="titltNav :: titleBar"></div>
+<div class="container-fluid context-form-margin">
+    <div>
+        <h1>出错了！！！！</h1>
+        <p th:text="${message}"></p>
+        <p><a class="btn btn-primary btn-lg" href="/index" role="button">回首页</a></p>
+    </div>
+</div>
+</body>
+</html>
