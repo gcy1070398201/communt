@@ -21,11 +21,9 @@ public class QuestionController {
                            Model model){
 
         PublishDto publishDto=publishService.selectByIdInfo(id);
-        if (publishDto!=null){
-            model.addAttribute("publishDto",publishDto);
-        }else{
-            throw new AcmeException(AcmeExceptionCode.Question_ERROR_MESSAGE);
-        }
+        //累加评论
+        publishService.incView(id);
+        model.addAttribute("publishDto",publishDto);
         return "question";
     }
 

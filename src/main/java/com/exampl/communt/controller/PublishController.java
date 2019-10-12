@@ -32,9 +32,9 @@ public class PublishController {
     @GetMapping(value = "/publish")
     public String publish(@RequestParam(value = "id",defaultValue = "0") Integer id,
                           Model model){
-        PublishMode publishMode=new PublishMode();
+        PublishMode publishMode=null;
         if (id!=0){
-            publishMode=publishService.createOrUpdate(id,publishMode);
+            publishMode=publishService.createOrUpdate(id);
         }
         model.addAttribute("publishMode",publishMode);
         return"publish";

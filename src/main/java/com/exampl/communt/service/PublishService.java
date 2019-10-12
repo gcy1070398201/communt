@@ -3,6 +3,9 @@ package com.exampl.communt.service;
 import com.exampl.communt.dto.ProfileQuestionsDto;
 import com.exampl.communt.dto.PubLishListDto;
 import com.exampl.communt.dto.PublishDto;
+import com.exampl.communt.exception.AcmeException;
+import com.exampl.communt.exception.AcmeExceptionCode;
+import com.exampl.communt.mapper.PublishModeExtMapper;
 import com.exampl.communt.mapper.PublishModeMapper;
 import com.exampl.communt.mode.PublishMode;
 import com.exampl.communt.mode.PublishModeExample;
@@ -23,6 +26,9 @@ public class PublishService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private PublishModeExtMapper publishModeExtMapper;
 
     /**
      * 插入信息
@@ -122,15 +128,18 @@ public class PublishService {
         return profileQuestionsDto;
     }
 
+    /**
+     * 根据id 查询 信息
+     * 组合数据
+     * @param id
+     * @return
+     */
     public PublishDto selectByIdInfo(Integer id) {
 
-        PublishModeExample publishModeExample=new PublishModeExample();
-        publishModeExample.createCriteria().andIdEqualTo(id);
-        List<PublishMode> list=publishMapper.selectByExample(publishModeExample);
-        if (list.size()==0){
-            return null;
+        PublishMode publishMode=publishMapper.selectByPrimaryKey(id);
+        if (publishMode==null){
+            throw new AcmeException(AcmeExceptionCode.Question_ERROR_MESSAGE);
         }
-        PublishMode publishMode=list.get(0);
         PublishDto publishDto = new PublishDto();
         BeanUtils.copyProperties(publishMode, publishDto);
         User user = userService.findUserId(publishDto.getCreatId());
@@ -138,21 +147,34 @@ public class PublishService {
         return publishDto;
     }
 
-    public PublishMode createOrUpdate(Integer id,PublishMode publishMode) {
+    /**
+     * 根据id 查询 信息
+     * 然后更新信息
+     * @param id
+     * @return
+     */
+    public PublishMode createOrUpdate(Integer id) {
+
+        PublishMode publishMode=new PublishMode();
         if (id!=0){
             //更新信息
-            PublishModeExample publishModeExample=new PublishModeExample();
-            publishModeExample.createCriteria().andIdEqualTo(id);
-            List<PublishMode> list=publishMapper.selectByExample(publishModeExample);
-            if (list.size()==0){
-                return null;
-            }
-            PublishMode publishMode1=list.get(0);
-            if (publishMode1!=null){
-                BeanUtils.copyProperties(publishMode1, publishMode);
+            PublishMode publishModeDto=publishMapper.selectByPrimaryKey(id);
+            if (publishModeDto!=null){
+                BeanUtils.copyProperties(publishModeDto, publishMode);
+            }else{
+                throw new AcmeException(AcmeExceptionCode.Question_ERROR_MESSAGE);
             }
         }
         return publishMode;
+    }
 
+    /**
+     * 累加评论
+     */
+    public void incView(Integer id) {
+        PublishMode publishMode = new PublishMode();
+        publishMode.setId(id);
+        publishMode.setViewCount(1);
+        publishModeExtMapper.incView(publishMode);
     }
 }
