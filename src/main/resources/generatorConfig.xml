@@ -35,5 +35,6 @@
 
         <table tableName="user_info" domainObjectName="User" />
         <table tableName="publish" domainObjectName="PublishMode" />
+        <table tableName="comment" domainObjectName="Comment" />
     </context>
 </generatorConfiguration>
