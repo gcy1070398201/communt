@@ -1,5 +1,6 @@
 package com.exampl.communt.util;
 
+import com.exampl.communt.exception.AcmeException;
 import com.exampl.communt.exception.AcmeExceptionCode;
 
 public class ResultUtil {
@@ -11,6 +12,8 @@ public class ResultUtil {
         this.code = code;
         this.msg = msg;
     }
+
+
 
     public String getMsg() {
         return this.msg;
@@ -34,6 +37,10 @@ public class ResultUtil {
 
     public static ResultUtil errorOf(AcmeExceptionCode userLoginErrorCode) {
         return new ResultUtil(userLoginErrorCode.getCode(), userLoginErrorCode.getMessage());
+    }
+
+    public static ResultUtil errorOf(AcmeException e) {
+        return new ResultUtil(e.getCode(),e.getMessage());
     }
 
     public static ResultUtil okOf() {

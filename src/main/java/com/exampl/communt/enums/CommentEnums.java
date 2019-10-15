@@ -1,5 +1,8 @@
 package com.exampl.communt.enums;
 
+/**
+ * 定义评论，回复 标识
+ */
 public enum  CommentEnums {
 
     QUESTION(1),

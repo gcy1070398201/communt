@@ -1,5 +1,6 @@
 package com.exampl.communt.controller;
 
+import com.exampl.communt.exception.AcmeExceptionCode;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +26,10 @@ public class AcmeErrorController implements ErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, Model model) {
         HttpStatus status = getStatus(request);
         if (status.is4xxClientError()){
-            model.addAttribute("messgae","你的访问路径不存在");
+            model.addAttribute("messgae",AcmeExceptionCode.ACME_EXCEPTION_CODE.getMessage());
         }
         if (status.is5xxServerError()){
-            model.addAttribute("message","服务器冒烟了，请稍后再试");
+            model.addAttribute("message", AcmeExceptionCode.SYSTEM_ERROR_CODE.getMessage());
         }
         return new ModelAndView("error");
     }
