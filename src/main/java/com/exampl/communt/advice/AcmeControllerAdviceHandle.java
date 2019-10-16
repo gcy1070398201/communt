@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 统一异常处理类
+ */
 @ControllerAdvice
 public class AcmeControllerAdviceHandle {
 

@@ -17,7 +17,7 @@ public class QuestionController {
     PublishService publishService;
 
     @GetMapping(value = "/question/{id}")
-    public String question(@PathVariable("id") Integer id,
+    public String question(@PathVariable("id") long id,
                            Model model){
 
         PublishDto publishDto=publishService.selectByIdInfo(id);

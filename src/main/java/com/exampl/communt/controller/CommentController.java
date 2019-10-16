@@ -4,6 +4,7 @@ import com.exampl.communt.dto.CommentDto;
 import com.exampl.communt.exception.AcmeException;
 import com.exampl.communt.exception.AcmeExceptionCode;
 import com.exampl.communt.mode.BaseMode;
+import com.exampl.communt.mode.Comment;
 import com.exampl.communt.mode.User;
 import com.exampl.communt.service.CommentService;
 import com.exampl.communt.util.ResultUtil;
@@ -29,8 +30,15 @@ public class CommentController {
 //        if (user==null){
 //            return ResultUtil.errorOf(AcmeExceptionCode.USER_LOGIN_ERROR_CODE);
 //        }
-        commentService.insert(commentDto);
-
+        Comment comment=new Comment();
+        comment.setParentId(commentDto.getParentId());
+        comment.setContent(commentDto.getContent());
+        comment.setType(commentDto.getType());
+        comment.setCommentator(user.getId());
+        comment.setGmtCreate(System.currentTimeMillis());
+        comment.setGmtModified(comment.getGmtCreate());
+        comment.setLikeCount(1);
+        commentService.insert(comment);
         return ResultUtil.okOf();
     }
 }

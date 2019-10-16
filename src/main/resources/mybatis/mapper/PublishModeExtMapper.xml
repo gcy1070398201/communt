@@ -23,4 +23,10 @@
     set view_count =view_count+ #{viewCount}
     where id = #{id}
   </update>
+
+  <update id="incComment" parameterType="com.exampl.communt.mode.PublishMode">
+    update publish
+    set reply_count =reply_count+ #{replyCount}
+    where id = #{id}
+  </update>
 </mapper>

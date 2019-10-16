@@ -7,7 +7,7 @@ public class PublishDto {
     private String title;
     private String describeText;
     private String label;
-    private String creatId;//创建人的id
+    private long creatId;//创建人的id
     private long gmtCreate;
     private long gmtModified;
     private Integer replyCount;//回复次数
@@ -46,11 +46,11 @@ public class PublishDto {
         this.label = label;
     }
 
-    public String getCreatId() {
+    public long getCreatId() {
         return this.creatId;
     }
 
-    public void setCreatId(final String creatId) {
+    public void setCreatId(final long creatId) {
         this.creatId = creatId;
     }
 

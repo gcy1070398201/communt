@@ -134,7 +134,7 @@ public class PublishService {
      * @param id
      * @return
      */
-    public PublishDto selectByIdInfo(Integer id) {
+    public PublishDto selectByIdInfo(long id) {
 
         PublishMode publishMode=publishMapper.selectByPrimaryKey(id);
         if (publishMode==null){
@@ -153,7 +153,7 @@ public class PublishService {
      * @param id
      * @return
      */
-    public PublishMode createOrUpdate(Integer id) {
+    public PublishMode createOrUpdate(long id) {
 
         PublishMode publishMode=new PublishMode();
         if (id!=0){
@@ -171,7 +171,7 @@ public class PublishService {
     /**
      * 累加评论
      */
-    public void incView(Integer id) {
+    public void incView(long id) {
         PublishMode publishMode = new PublishMode();
         publishMode.setId(id);
         publishMode.setViewCount(1);

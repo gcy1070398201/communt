@@ -11,6 +11,16 @@ import java.util.List;
  * PublishModeMapper 扩展mapper
  */
 public interface PublishModeExtMapper {
-
+    /**
+     * 页面游览次数
+     * @param record
+     * @return
+     */
     int incView(PublishMode record);
+    /**
+     * 信息回复次数
+     * @param record
+     * @return
+     */
+    int incComment(PublishMode record);
 }

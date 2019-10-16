@@ -1,6 +1,8 @@
 package com.exampl.communt.service;
 
 import com.exampl.communt.dto.GitHubUserDto;
+import com.exampl.communt.exception.AcmeException;
+import com.exampl.communt.exception.AcmeExceptionCode;
 import com.exampl.communt.mapper.UserMapper;
 import com.exampl.communt.mode.User;
 import com.exampl.communt.mode.UserExample;
@@ -78,15 +80,12 @@ public class UserService {
      * @param id
      * @return
      */
-    public User findUserId(String id){
-        UserExample userExample=new UserExample();
-        userExample.createCriteria()
-                .andIdEqualTo(Integer.valueOf(id));
-        List<User> list=mapper.selectByExample(userExample);
-        if (list.size()>0){
-            return list.get(0);
+    public User findUserId(long id){
+        User user=mapper.selectByPrimaryKey(id);
+        if (user==null){
+           throw new AcmeException(AcmeExceptionCode.USER_NOT_FIND_CODE);
         }
-        return null;
+        return user;
     }
 
 }

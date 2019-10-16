@@ -1,15 +1,15 @@
 package com.exampl.communt.dto;
 
 public class CommentDto {
-    private Integer parentId;
+    private Long parentId;
     private String content;
     private Integer type;
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return this.parentId;
     }
 
-    public void setParentId(final Integer parentId) {
+    public void setParentId(final Long parentId) {
         this.parentId = parentId;
     }
 

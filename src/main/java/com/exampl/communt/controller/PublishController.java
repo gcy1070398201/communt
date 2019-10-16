@@ -30,7 +30,7 @@ public class PublishController {
     UserService userService;
 
     @GetMapping(value = "/publish")
-    public String publish(@RequestParam(value = "id",defaultValue = "0") Integer id,
+    public String publish(@RequestParam(value = "id",defaultValue = "0") long id,
                           Model model){
         PublishMode publishMode=null;
         if (id!=0){
@@ -75,7 +75,7 @@ public class PublishController {
         publishMode.setLabel(label);
         publishMode.setGmtCreate(System.currentTimeMillis());
         publishMode.setGmtModified(publishMode.getGmtCreate());
-        publishMode.setCreatId(String.valueOf(user.getId()));
+        publishMode.setCreatId(user.getId());
 
         publishService.insert(publishMode);
 
