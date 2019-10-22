@@ -27,31 +27,34 @@ public class AcmeControllerAdviceHandle {
                                            HttpServletRequest httpServletRequest,
                                            HttpServletResponse httpServletResponse) {
         String contentType = httpServletRequest.getContentType();
-        if (contentType.equals("text/plain")){
-            if (e instanceof AcmeException){
-                model.addAttribute("message",e.getMessage());
+        if (contentType!=null){
+            if (contentType.equals("application/json")){
+                ResultUtil resultUtil=null;
+                if (e instanceof AcmeException){
+                    resultUtil= ResultUtil.errorOf((AcmeException) e);
+                }else{
+                    resultUtil= ResultUtil.errorOf(AcmeExceptionCode.SYSTEM_ERROR_CODE);
+                }
+                try {
+                    httpServletResponse.setContentType("application/json");
+                    httpServletResponse.setStatus(200);
+                    httpServletResponse.setCharacterEncoding("UTF-8");
+                    PrintWriter writer = httpServletResponse.getWriter();
+                    writer.write(JSON.toJSONString(resultUtil));
+                    writer.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
             }else{
-                model.addAttribute("message",AcmeExceptionCode.SYSTEM_ERROR_CODE.getMessage());
+                if (e instanceof AcmeException){
+                    model.addAttribute("message",e.getMessage());
+                }else{
+                    model.addAttribute("message",AcmeExceptionCode.SYSTEM_ERROR_CODE.getMessage());
+                }
+                return new ModelAndView("error");
             }
-            return new ModelAndView("error");
-        }else{
-            ResultUtil resultUtil=null;
-            if (e instanceof AcmeException){
-                resultUtil= ResultUtil.errorOf((AcmeException) e);
-            }else{
-                resultUtil= ResultUtil.errorOf(AcmeExceptionCode.SYSTEM_ERROR_CODE);
-            }
-            try {
-                httpServletResponse.setContentType("application/json");
-                httpServletResponse.setStatus(200);
-                httpServletResponse.setCharacterEncoding("UTF-8");
-                PrintWriter writer = httpServletResponse.getWriter();
-                writer.write(JSON.toJSONString(resultUtil));
-                writer.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            return null;
         }
+        return null;
     }
 }

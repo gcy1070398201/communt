@@ -15,15 +15,23 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     AppInterceptor appInterceptor;
 
+    /**
+     * 注册拦截器
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(appInterceptor)
-                .addPathPatterns("/**");
+//        registry.addInterceptor(appInterceptor)
+//                .addPathPatterns("/**").excludePathPatterns("/**/*.css","/**/*.js");
     }
 
+    /**
+     * 将static下面的js，css文件加载出来
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
+        registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
 
     }

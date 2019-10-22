@@ -12,6 +12,7 @@ import com.exampl.communt.mode.PublishMode;
 import com.exampl.communt.mode.PublishModeExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -25,6 +26,7 @@ public class CommentService {
     @Autowired
     PublishModeExtMapper publishModeExtMapper;
 
+    @Transactional
     public void insert(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
 
